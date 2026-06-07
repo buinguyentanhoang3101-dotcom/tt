@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khung Xương Web Du Lịch - CKT Travel</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        .hero-banner {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                        url('https://images.unsplash.com/photo-1528127269322-539801943592?q=80&w=1920') no-repeat center center/cover;
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+        .tour-card, .news-card {
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        .tour-card:hover, .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.12);
+        }
+        .tour-img, .news-img {
+            height: 220px;
+            object-fit: cover;
+        }
+        .badge-discount {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: #dc3545;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-primary fs-3" href="#"><i class="fa-solid fa-compass me-2"></i>CKT TRAVEL</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center fw-semibold">
+                    <li class="nav-item me-3">
+                        <form class="d-flex" role="search" onsubmit="event.preventDefault(); alert('Tìm kiếm khung xương thôi m ơi!');">
+                            <div class="input-group input-group-sm">
+                                <input class="form-control" type="search" placeholder="Tìm tour, điểm đến..." aria-label="Search">
+                                <button class="btn btn-primary" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                            </div>
+                        </form>
+                    </li>
+                    <li class="nav-item"><a class="nav-link active text-primary" href="#"><i class="fa-solid fa-house me-1"></i>Trang Chủ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#tours-inbound-section">Tour Trong Nước</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#tours-outbound-section">Tour Quốc Tế</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#travel-news-section">Tin Tức</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact-section">Liên Hệ</a></li>
+                    <li class="nav-item ms-lg-3">
+                        <a href="#tours-inbound-section" class="btn btn-primary px-4 rounded-pill">Đặt Ngay</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="position-relative text-white d-flex align-items-center justify-content-center" style="min-height: 80vh; background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1528127269322-539801943592?q=80&w=1920') no-repeat center center/cover;">
+        <div class="container text-center position-relative" style="z-index: 2;">
+            <span class="badge bg-warning text-dark px-3 py-2 rounded-pill fw-bold text-uppercase tracking-wider mb-3 shadow-sm">Chào mừng bạn đến với CKT Travel</span>
+            <h1 class="display-3 fw-extrabold text-white mb-3 tracking-tight" style="text-shadow: 2px 2px 8px rgba(0,0,0,0.6);">
+                Khám Phá Hành Trình <br><span class="text-warning">Mơ Ước</span> Của Bạn
+            </h1>
+            <p class="lead text-light mb-5 fs-4" style="text-shadow: 1px 1px 4px rgba(0,0,0,0.5);">Khám phá những vùng đất mới, trải nghiệm văn hóa bản địa độc đáo cùng chúng tôi.</p>
+            
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="card p-3 p-lg-4 shadow-lg border-0 bg-white text-dark rounded-4" style="backdrop-filter: blur(10px); background: rgba(255, 255, 255, 0.95) !important;">
+                        <form class="row g-2 g-md-3 align-items-center text-start" onsubmit="event.preventDefault(); alert('Đang tìm kiếm tour cho bạn...');">
+                            <div class="col-md-4">
+                                <label class="form-label small fw-bold text-secondary mb-1"><i class="fa-solid fa-location-dot text-primary me-1"></i> Bạn muốn đi đâu?</label>
+                                <select class="form-select border-0 bg-light rounded-3 py-2">
+                                    <option selected>Chọn điểm đến...</option>
+                                    <option>Hội An - Đà Nẵng</option>
+                                    <option>Sapa Mù Sương</option>
+                                    <option>Đảo Ngọc Phú Quốc</option>
+                                    <option>Hàn Quốc / Nhật Bản</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label small fw-bold text-secondary mb-1"><i class="fa-solid fa-calendar-days text-primary me-1"></i> Thời gian</label>
+                                <select class="form-select border-0 bg-light rounded-3 py-2">
+                                    <option selected>Tất cả thời gian...</option>
+                                    <option>Tour 1 ngày</option>
+                                    <option>3 ngày 2 đêm</option>
+                                    <option>4 ngày 3 đêm</option>
+                                    <option>Trên 5 ngày</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label small fw-bold text-secondary mb-1"><i class="fa-solid fa-tags text-primary me-1"></i> Loại hình</label>
+                                <select class="form-select border-0 bg-light rounded-3 py-2">
+                                    <option selected>Tất cả loại hình...</option>
+                                    <option>Tour tiết kiệm</option>
+                                    <option>Nghỉ dưỡng cao cấp</option>
+                                    <option>Tour trải nghiệm, phượt</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2 d-grid mt-md-4">
+                                <button type="submit" class="btn btn-primary fw-bold py-2 rounded-3 shadow"><i class="fa-solid fa-magnifying-glass me-1"></i> Tìm</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="container my-5" id="tours-inbound-section">
+        <div class="text-center mb-5">
+            <span class="text-primary fw-bold text-uppercase tracking-wider">Khám Phá Việt Nam</span>
+            <h2 class="fw-bold mt-1">Tour Du Lịch Trong Nước</h2>
+            <p class="text-muted">Hành trình tìm về vẻ đẹp bất tận của non sông gấm vóc</p>
+        </div>
+        <div class="row g-4" id="tours-inbound-container">
+            </div>
+    </section>
+
+    <section class="bg-light py-5" id="tours-outbound-section">
+        <div class="container my-4">
+            <div class="text-center mb-5">
+                <span class="text-primary fw-bold text-uppercase tracking-wider">Vươn Ra Thế Giới</span>
+                <h2 class="fw-bold mt-1">Tour Du Lịch Quốc Tế</h2>
+                <p class="text-muted">Trải nghiệm những nền văn minh độc đáo và kỳ quan thế giới</p>
+            </div>
+            <div class="row g-4" id="tours-outbound-container">
+                </div>
+        </div>
+    </section>
+
+    <section class="container my-5" id="travel-news-section">
+        <div class="text-center mb-5">
+            <span class="text-primary fw-bold text-uppercase tracking-wider">Góc Chia Sẻ</span>
+            <h2 class="fw-bold mt-1">Cẩm Nang & Mẹo Du Lịch</h2>
+            <p class="text-muted">Những thông tin hữu ích giúp m có chuyến đi trọn vẹn nhất</p>
+        </div>
+        <div class="row g-4" id="news-container">
+            </div>
+    </section>
+
+    <section class="bg-dark text-white py-5" id="contact-section">
+        <div class="container py-4">
+            <div class="row g-4 align-items-center">
+                <div class="col-lg-5">
+                    <span class="text-warning fw-bold text-uppercase">Kết Nối Với Chúng Tôi</span>
+                    <h2 class="fw-bold text-white mt-1 mb-3">M Có Thắc Mắc Gì Không?</h2>
+                    <p class="text-light-50 mb-4">Đội ngũ CKT Travel luôn túc trực 24/7 để giải đáp và hỗ trợ m thiết kế những hành trình hoàn hảo nhất. Đừng ngần ngại liên hệ nhé!</p>
+                    <div class="d-flex mb-3 align-items-center">
+                        <i class="fa-solid fa-phone fs-4 text-warning me-3"></i>
+                        <div>
+                            <h6 class="mb-0 fw-bold">Hotline đặt tour:</h6>
+                            <span class="text-light-50">1900 xxxx (08:00 - 22:00)</span>
+                        </div>
+                    </div>
+                    <div class="d-flex mb-3 align-items-center">
+                        <i class="fa-solid fa-envelope fs-4 text-warning me-3"></i>
+                        <div>
+                            <h6 class="mb-0 fw-bold">Email hỗ trợ:</h6>
+                            <span class="text-light-50">support@ckttravel.com</span>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <i class="fa-solid fa-map-location-dot fs-4 text-warning me-3"></i>
+                        <div>
+                            <h6 class="mb-0 fw-bold">Trụ sở chính:</h6>
+                            <span class="text-light-50">Hải Châu, Đà Nẵng, Việt Nam</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="card p-4 bg-white text-dark rounded-4 shadow">
+                        <h4 class="fw-bold mb-3"><i class="fa-solid fa-paper-plane text-primary me-2"></i>Gửi lời nhắn cho tụi t</h4>
+                        <form onsubmit="event.preventDefault(); Swal.fire('Gửi Thành Công', 'Tụi t đã nhận được thông tin và sẽ phản hồi m sớm nhất!', 'success'); this.reset();">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label small fw-bold">Họ và Tên</label>
+                                    <input type="text" class="form-control bg-light" placeholder="Nhập tên của m..." required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label small fw-bold">Số điện thoại / Email</label>
+                                    <input type="text" class="form-control bg-light" placeholder="Để tụi t liên lạc lại..." required>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label small fw-bold">M cần tụi t giúp gì?</label>
+                                    <select class="form-select bg-light">
+                                        <option>Tư vấn đặt tour có sẵn</option>
+                                        <option>Thiết kế tour riêng theo yêu cầu</option>
+                                        <option>Phản hồi chất lượng dịch vụ</option>
+                                        <option>Yêu cầu hỗ trợ khác</option>
+                                    </select>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label small fw-bold">Nội dung chi tiết</label>
+                                    <textarea class="form-control bg-light" rows="4" placeholder="Nhập nội dung thắc mắc tại đây..." required></textarea>
+                                </div>
+                                <div class="col-12 d-grid">
+                                    <button type="submit" class="btn btn-primary fw-bold py-2 rounded-3">Gửi Yêu Cầu Liên Hệ</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-black text-center text-light-50 py-3 border-top border-secondary">
+        <small>&copy; 2026 CKT Travel. Thiết kế bộ khung nâng cấp hệ thống.</small>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <script>
+        // --- CƠ SỞ DỮ LIỆU TOURS & TIN TỨC ---
+        const inboundTours = [
+            { id: 'in1', title: 'Tour Đà Nẵng - Hội An - Bà Nà Hills', time: '3 ngày 2 đêm', originalPrice: 3290000, currentPrice: 2490000, img: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=600', desc: 'Khám phá thành phố đáng sống, check-in Cầu Vàng sương khói và dạo bước phố cổ đèn lồng lãng mạn.' },
+            { id: 'in2', title: 'Hành trình chinh phục Sapa Mù Sương', time: '4 ngày 3 đêm', originalPrice: 4500000, currentPrice: 3890000, img: 'https://images.unsplash.com/photo-1507646227500-4d389b0012be?q=80&w=600', desc: 'Chinh phục đỉnh Fansipan - nóc nhà Đông Dương, trải nghiệm bản Cát Cát và săn mây tuyệt đẹp.' },
+            { id: 'in3', title: 'Nghỉ dưỡng thiên đường Đảo Ngọc Phú Quốc', time: '3 ngày 2 đêm', originalPrice: 5200000, currentPrice: 4690000, img: 'https://images.unsplash.com/photo-1540206395-68808572332f?q=80&w=600', desc: 'Tận hưởng làn nước xanh ngọc bích, lặn ngắm san hô tại hòn Mây Rút và check-in Sunset Sanato.' },
+            { id: 'in4', title: 'Kỳ quan thế giới Vịnh Hạ Long', time: '2 ngày 1 đêm', originalPrice: 2990000, currentPrice: 2550000, img: 'https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?q=80&w=600', desc: 'Du thuyền hạng sang ngủ đêm trên vịnh, chèo thuyền kayak và khám phá Động Sửng Sốt hùng vĩ.' },
+            { id: 'in5', title: 'Khám phá Miền Tây Sông Nước', time: '3 ngày 2 đêm', originalPrice: 2600000, currentPrice: 1990000, img: 'https://images.unsplash.com/photo-1543731068-7e0f5beff43a?q=80&w=600', desc: 'Ghé thăm chợ nổi Cái Răng, vườn trái cây trĩu quả Cần Thơ và nghe đờn ca tài tử đặc trưng.' },
+            { id: 'in6', title: 'Đà Lạt - Thành Phố Ngàn Hoa', time: '3 ngày 3 đêm', originalPrice: 3100000, currentPrice: 2790000, img: 'https://images.unsplash.com/photo-1620247656919-45d625d481da?q=80&w=600', desc: 'Hít thở không khí se lạnh, check-in Quảng trường Lâm Viên, Thung lũng Tình Yêu và đồi chè Cầu Đất.' },
+            { id: 'in7', title: 'Nha Trang - Thiên Đường Biển Gọi', time: '4 ngày 3 đêm', originalPrice: 4200000, currentPrice: 3690000, img: 'https://images.unsplash.com/photo-1583212292454-1fe6229603b7?q=80&w=600', desc: 'Vui chơi thả ga tại VinWonders, tour đảo cano tốc độ cao, lặn biển ngắm san hô Hòn Mun.' },
+            { id: 'in8', title: 'Cố Đô Huế - Vẻ Đẹp Di Sản', time: '2 ngày 1 đêm', originalPrice: 1950000, currentPrice: 1590000, img: 'https://images.unsplash.com/photo-1571508601936-6ca847b47ae4?q=80&w=600', desc: 'Thăm Đại Nội Kinh Thành, các lăng tẩm lộng lẫy và nghe ca Huế trầm mặc trên dòng sông Hương.' },
+            { id: 'in9', title: 'Hà Giang - Mùa Hoa Tam Giác Mạch', time: '3 ngày 2 đêm', originalPrice: 3800000, currentPrice: 3400000, img: 'https://images.unsplash.com/photo-1605538032432-a9f0c8d9baac?q=80&w=600', desc: 'Chinh phục đèo Mã Pí Lèng, hẻm vực Tu Sản sâu nhất Đông Nam Á, đi thuyền trên sông Nho Quế.' },
+            { id: 'in10', title: 'Quy Nhơn - Eo Gió Đón Nắng', time: '3 ngày 2 đêm', originalPrice: 3500000, currentPrice: 2990000, img: 'https://images.unsplash.com/photo-1590001155093-a3c66ab0c3ff?q=80&w=600', desc: 'Ngắm hoàng hôn tại Eo Gió kỳ vĩ, bơi lội tại Kỳ Co hoang sơ và thăm tháp đôi Chăm Pa cổ kính.' },
+            { id: 'in11', title: 'Mũi Né - Phan Thiết Cát Trắng', time: '2 ngày 1 đêm', originalPrice: 2400000, currentPrice: 1950000, img: 'https://images.unsplash.com/photo-1589308078059-be1415eab4c3?q=80&w=600', desc: 'Trải nghiệm xe Jeep chạy địa hình đồi cát trắng, tham quan Suối Tiên tự nhiên tuyệt đẹp.' },
+            { id: 'in12', title: 'Đảo Lý Sơn - Vương Quốc Tỏi', time: '3 ngày 2 đêm', originalPrice: 3900000, currentPrice: 3290000, img: 'https://images.unsplash.com/photo-1536782376847-5c9d14d97cc0?q=80&w=600', desc: 'Khám phá miệng núi lửa cổ, cổng Tò Vò độc đáo và tắm biển tại Đảo Bé trong vắt như gương.'
+            }
+        ];
+
+        const outboundTours = [
+            { id: 'out1', title: 'Tour Siêu Hot: Nhật Bản Mùa Hoa Anh Đào', time: '5 ngày 4 đêm', originalPrice: 28900000, currentPrice: 26500000, img: 'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=600', desc: 'Ghé thăm Tokyo sôi động, núi Phú Sĩ hùng vĩ phủ tuyết trắng và thủ phủ văn hóa Kyoto cổ kính.' },
+            { id: 'out2', title: 'Khám Phá Hàn Quốc - Seoul - Nami', time: '5 ngày 4 đêm', originalPrice: 15900000, currentPrice: 13900000, img: 'https://images.unsplash.com/photo-1538481199705-c710c4e965fc?q=80&w=600', desc: 'Check-in cung điện Gyeongbokgung, đảo Nami lãng mạn nơi quay phim Bản Tình Ca Mùa Đông.' },
+            { id: 'out3', title: 'Tour Liên Tuyến: Singapore - Malaysia', time: '6 ngày 5 đêm', originalPrice: 12500000, currentPrice: 10990000, img: 'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?q=80&w=600', desc: 'Chiêm ngưỡng Marina Bay Sands, tháp đôi Petronas và vui chơi tại cao nguyên Genting đẳng cấp.' },
+            { id: 'out4', title: 'Thiên Đường Biển Đảo Bali - Indonesia', time: '4 ngày 3 đêm', originalPrice: 11000000, currentPrice: 9690000, img: 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?q=80&w=600', desc: 'Check-in cổng trời Lempuyang, xích đu Bali Swing thần thánh, ngắm hoàng hôn đền Tanah Lot.' },
+            { id: 'out5', title: 'Tour Thái Lan: Bangkok - Pattaya', time: '5 ngày 4 đêm', originalPrice: 7500000, currentPrice: 6290000, img: 'https://images.unsplash.com/photo-1508009603885-50cf7c579365?q=80&w=600', desc: 'Thưởng thức ẩm thực đường phố Bangkok, dạo thuyền sông Chaophraya, xem show Alcazar hoành tráng.' },
+            { id: 'out6', title: 'Tây Âu Huyền Bí: Pháp - Thụy Sĩ - Ý', time: '10 ngày 9 đêm', originalPrice: 65000000, currentPrice: 59900000, img: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=80&w=600', desc: 'Hành trình trọn vẹn tháp Eiffel Paris, làng cổ Thụy Sĩ ven dãy Alps và thành phố kênh đào Venice.' }
+        ];
+
+        const newsArticles = [
+            { id: 'n1', title: '10 Mẹo chuẩn bị hành lý gọn nhẹ khi đi leo núi Sapa', type: 'Cẩm nang du lịch', img: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=600', excerpt: 'Leo núi đòi hỏi m phải tối giản hành lý tối đa để không mất sức. Đọc ngay bài viết để xem danh sách món đồ bắt buộc phải mang...', body: 'Chi tiết bài báo: 1. Chọn balo trợ lực phân phối đều trọng lượng. 2. Nguyên tắc cuốn tròn quần áo giúp tiết kiệm 40% không gian. 3. Sử dụng các loại giày trekking có độ bám cao thay vì giày thời trang. 4. Mang theo thuốc xịt côn trùng và túi sơ cứu y tế cá nhân mini.' },
+            { id: 'n2', title: 'Ăn sập Đà Nẵng với lịch trình Food Tour chỉ 500k', type: 'Mẹo địa điểm', img: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?q=80&w=600', excerpt: 'Đà Nẵng không chỉ có cảnh đẹp mà thiên đường ẩm thực ở đây cực kỳ rẻ nếu m biết các địa chỉ local này...', body: 'Chi tiết bài báo: Với 500k, m có thể oanh tạc: Sáng ăn bánh mì chả bò Bà Lan hoặc mì Quảng ếch bếp Trang. Trưa ăn bánh tráng cuốn thịt heo Đại Lộc. Chiều ăn vặt mít trộn, ốc hút tại chợ Bắc Mỹ An. Tối chốt hạ bằng hải sản tươi sống tại các quán dọc biển Phạm Văn Đồng với mức giá bình dân.' },
+            { id: 'n3', title: 'Những lưu ý quan trọng khi xin Visa du lịch tự túc Nhật Bản', type: 'Kinh nghiệm nước ngoài', img: 'https://images.unsplash.com/photo-1503899036084-c55cdd92da26?q=80&w=600', excerpt: 'Đừng để bị đánh trượt visa đáng tiếc! Hồ sơ tài chính và lịch trình chi tiết cần chuẩn bị cực kỳ chuẩn chỉ như sau...', body: 'Chi tiết bài báo: 1. Số dư tài khoản tiết kiệm tối thiểu 100 triệu đồng và đã gửi trên 3 tháng. 2. Hợp đồng lao động dịch thuật công chứng tiếng Anh rõ ràng. 3. Lịch trình di chuyển chi tiết từng ngày khớp hoàn toàn với booking phòng khách sạn và vé máy bay khứ hồi (chỉ đặt giữ chỗ, chưa cần thanh toán).' }
+        ];
+
+        // --- HÀM ĐỊNH DẠNG SỐ TIỀN VND ---
+        function formatVND(amount) {
+            return amount.toLocaleString('vi-VN') + 'đ';
+        }
+
+        // --- TỰ ĐỘNG TÍNH PHẦN TRĂM GIẢM GIÁ ---
+        function getDiscountPercent(original, current) {
+            let percent = Math.round(((original - current) / original) * 100);
+            return `-${percent}%`;
+        }
+
+        // --- HÀM TẠO CARD TOUR CHUNG ---
+        function createTourCard(tour) {
+            return `
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 tour-card position-relative">
+                        <span class="badge-discount"><i class="fa-solid fa-bolt me-1"></i>${getDiscountPercent(tour.originalPrice, tour.currentPrice)}</span>
+                        <img src="${tour.img}" class="card-img-top tour-img" alt="${tour.title}">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title fw-bold text-dark mb-2">${tour.title}</h5>
+                            <p class="text-muted small text-truncate-2 mb-3" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">${tour.desc}</p>
+                            <div class="mb-3">
+                                <small class="text-muted"><i class="fa-solid fa-clock me-1 text-primary"></i> Thời gian: ${tour.time}</small>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-between mt-auto pt-2 border-top">
+                                <div>
+                                    <del class="text-muted small">${formatVND(tour.originalPrice)}</del>
+                                    <div class="fw-bold text-danger fs-5">${formatVND(tour.currentPrice)}</div>
+                                </div>
+                            </div>
+                            <div class="row g-2 mt-2">
+                                <div class="col-6">
+                                    <button class="btn btn-outline-secondary w-100 btn-sm rounded-pill" onclick="viewTourDetails('${tour.id}', '${tour.title}', '${tour.time}', ${tour.currentPrice}, '${tour.desc}', '${tour.img}')">Xem chi tiết</button>
+                                </div>
+                                <div class="col-6">
+                                    <button class="btn btn-primary w-100 btn-sm rounded-pill fw-bold" onclick="triggerBooking('${tour.title}')">Đặt Ngay</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // --- HIỂN THỊ DỮ LIỆU LÊN TRANG WEB ---
+        document.addEventListener('DOMContentLoaded', function() {
+            // Render 12 tour trong nước
+            const inboundContainer = document.getElementById('tours-inbound-container');
+            inboundContainer.innerHTML = inboundTours.map(tour => createTourCard(tour)).join('');
+
+            // Render 6 tour quốc tế
+            const outboundContainer = document.getElementById('tours-outbound-container');
+            outboundContainer.innerHTML = outboundTours.map(tour => createTourCard(tour)).join('');
+
+            // Render Tin tức cẩm nang
+            const newsContainer = document.getElementById('news-container');
+            newsContainer.innerHTML = newsArticles.map(article => `
+                <div class="col-md-4">
+                    <div class="card h-100 news-card">
+                        <img src="${article.img}" class="card-img-top news-img" alt="${article.title}">
+                        <div class="card-body d-flex flex-column">
+                            <span class="badge bg-light text-primary align-self-start mb-2">${article.type}</span>
+                            <h5 class="card-title fw-bold text-dark fs-6">${article.title}</h5>
+                            <p class="text-muted small">${article.excerpt}</p>
+                            <button class="btn btn-link text-primary p-0 text-start fw-bold mt-auto border-0 bg-transparent" onclick="viewNewsDetails('${article.title}', '${article.body}', '${article.img}')">Đọc tiếp <i class="fa-solid fa-arrow-right ms-1 small"></i></button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        });
+
+        // --- POPUP 1: XEM CHI TIẾT TOUR ---
+        function viewTourDetails(id, title, time, price, desc, img) {
+            Swal.fire({
+                title: `<span style="font-size:20px; font-weight:bold; color:#111;">${title}</span>`,
+                html: `
+                    <div style="text-align: left; font-family: Arial, sans-serif;">
+                        <img src="${img}" style="width:100%; height:200px; object-fit:cover; border-radius:8px; margin-bottom:15px;">
+                        <p><strong><i class="fa-solid fa-clock text-primary me-1"></i> Thời gian:</strong> ${time}</p>
+                        <p><strong><i class="fa-solid fa-money-bill-wave text-success me-1"></i> Giá ưu đãi:</strong> <span style="color:#dc3545; font-weight:bold; font-size:18px;">${formatVND(price)}</span></p>
+                        <hr style="border-top: 1px solid #eee;">
+                        <p style="color:#555; line-height:1.5;"><strong>Mô tả lịch trình sơ lược:</strong><br>${desc}</p>
+                    </div>
+                `,
+                showCancelButton: true,
+                confirmButtonColor: '#0d6efd',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: '<i class="fa-solid fa-cart-shopping me-1"></i> Đặt Tour Này Luôn',
+                cancelButtonText: 'Đóng lại'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    triggerBooking(title); // Nếu ưng ý bấm đặt luôn sẽ kích hoạt form điền thông tin bên dưới
+                }
+            });
+        }
+
+        // --- POPUP 2: ĐỌC TIẾP TIN TỨC ---
+        function viewNewsDetails(title, body, img) {
+            Swal.fire({
+                title: `<span style="font-size:20px; font-weight:bold; color:#0d6efd;">${title}</span>`,
+                html: `
+                    <div style="text-align: left; font-family: Arial, sans-serif; font-size:15px; line-height:1.6; color:#333;">
+                        <img src="${img}" style="width:100%; height:200px; object-fit:cover; border-radius:8px; margin-bottom:15px;">
+                        <div style="white-space: pre-line;">${body}</div>
+                    </div>
+                `,
+                confirmButtonText: 'Đã Hiểu, Đóng Lại',
+                confirmButtonColor: '#6c757d'
+            });
+        }
+
+        // --- POPUP 3: FORM ĐĂNG KÝ ĐẶT TOUR (SWEETALERT2) ---
+        function triggerBooking(tourName) {
+            Swal.fire({
+                title: 'ĐĂNG KÝ ĐẶT TOUR',
+                html: `
+                    <div style="text-align: left; font-size: 14px; font-family: Arial, sans-serif;">
+                        <p style="margin-bottom: 15px;"><strong>M đang chọn:</strong> <span style="color: #0d6efd; font-weight: bold;">${tourName}</span></p>
+                        <hr style="border-top: 1px solid #eee;">
+                        <div style="margin-bottom: 12px;">
+                            <label style="display:block; margin-bottom: 5px; font-weight:bold; color: #555;">Họ và tên người đi:</label>
+                            <input type="text" id="input-hoten" class="swal2-input" style="width: 100%; margin: 0; height: 38px; box-sizing: border-box;" placeholder="Nhập họ và tên...">
+                        </div>
+                        <div style="margin-bottom: 12px;">
+                            <label style="display:block; margin-bottom: 5px; font-weight:bold; color: #555;">Số điện thoại liên hệ:</label>
+                            <input type="tel" id="input-sdt" class="swal2-input" style="width: 100%; margin: 0; height: 38px; box-sizing: border-box;" placeholder="Nhập số điện thoại...">
+                        </div>
+                    </div>
+                `,
+                icon: 'info',
+                showCancelButton: true,
+                confirmButtonColor: '#198754', 
+                cancelButtonColor: '#6c757d', 
+                confirmButtonText: 'Hoàn Thành Đặt Tour',
+                cancelButtonText: 'Hủy bỏ',
+                preConfirm: () => {
+                    const hoTen = Swal.getPopup().querySelector('#input-hoten').value.trim();
+                    const sdt = Swal.getPopup().querySelector('#input-sdt').value.trim();
+                    
+                    if (!hoTen || !sdt) {
+                        Swal.showValidationMessage(`M ơi, vui lòng điền đầy đủ Họ tên và SĐT để hoàn thành nha!`);
+                    }
+                    return { name: hoTen, phone: sdt };
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    let donHang = {
+                        tourName: tourName,
+                        customerName: result.value.name,
+                        customerPhone: result.value.phone,
+                        timeOrder: new Date().toLocaleString('vi-VN')
+                    };
+
+                    let danhSachDon = JSON.parse(localStorage.getItem('tour_orders')) || [];
+                    danhSachDon.push(donHang);
+                    localStorage.setItem('tour_orders', JSON.stringify(danhSachDon));
+
+                    Swal.fire({
+                        title: 'Đặt Tour Thành Công!',
+                        html: `Chúc mừng m đã đặt thành công tour:<br><b class="text-success">${tourName}</b>.<br>Tụi t sẽ liên hệ sớm nhất!`,
+                        icon: 'success',
+                        confirmButtonColor: '#0d6efd'
+                    });
+                }
+            });
+        }
+    </script>
+</body>
+</html>
